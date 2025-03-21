@@ -7,7 +7,7 @@ app= Flask(__name__)
 def index():
     weather=weather_by_city("Moscow,Russia")
     if weather:
-        return f"Погода: {weather["temp_C"]}, ощущается как: {weather["FeelsLikeC"]}"
+        return f"Погода: {weather["temp_C"]}, ощущается как: {weather["FeelsLikeC"]}"  # Показывание только нескольких ключей из словаря
     else:
         return "Сервис погоды временно недоступен"
 

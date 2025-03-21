@@ -20,7 +20,8 @@ def weather_by_city(city_name):
                     return weather["data"]["current_condition"][0]
                 except (IndexError, TypeError):
                     return False
-    except(requests.RequestException):   #Если нет интернета
+    except(requests.RequestException, ValueError):   #Если нет интернета, если URL не верный(404) ошибка
+        
         print("Сетевая ошибка")
         return False
     return False
