@@ -2,15 +2,24 @@
 
 <html>
 
-<head>
-    <title>{{ page_title }}</title>
-</head>
+    <head>
+        <title>{{ page_title }}</title>
+    </head>
 
-<body>
-    <h1>{{ weather }}</h1> 
-</body>
+    <body>
+        <h1>
+            {% if weather %}
+            Погода: {{ weather.temp_C}}, ощущается как: {{ weather.FeelsLikeC}}
+            {% else %}
+            Сервис погоды временно недоступен
+            {% endif %}
+        </h1>
+    </body>
 
 </html>
 
 <!-- Для вывода текста уберем прогноз погоды и сошлемся на переменную page_title
-переменная вывода текста у нас уже есть weather_text -->
+переменная вывода текста у нас уже есть weather_text 
+--% % проверка в шаблоне. В данном случае, что weather != False
+--endif - Важно писать в шаблонизаторе. В пайтоне есть блоки if, elif, else. В шаблонизаторе секция if - открывающая, else закрывающая и открывающая
+, а eddif - закрывает весь if -->
