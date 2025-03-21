@@ -1,39 +1,18 @@
-from flask import Flask
+from flask import Flask, render_template
 from weather import weather_by_city
 
 app= Flask(__name__)
 
 @app.route('/')
 def index():
+    title = "Прогноз погоды" # Создание переменной для шаблона
     weather=weather_by_city("Moscow,Russia")
     if weather:
         weather_text = f"Погода: {weather["temp_C"]}, ощущается как: {weather["FeelsLikeC"]}"  # внутри f строки - Показывание только нескольких ключей из словаря
     else:
         weather_text = "Сервис погоды временно недоступен"
-    return f"""
-    <html>
-        <head>
-            <title>Прогноз погоды</title>
-        </head>
-        <body>
-            <h1>{weather_text}</h1>
-            <ol>
-                <li>Ну ты</li>
-                <li>Даешь Боба</li>
-                <li>Кекес</li>
-            </ol>
-        </body>
+    return render_template("index.html", page_title=title, weather=weather_text) # Передаем в шаблон то, что мы присваеваем тут, а именно title и weather_text
 
-    </html>
-    """
-#  --html - пишется Тэками. <html> - открылся тэк </html> - закрылся тэк. Все что между ними -  находится внутри.
-# --head - заголовок страницы. Та часть страницы, которую мы не видим. Тут (В Заголовке) информация для браузера, либо для других автоматизированных пользователей. 
-# например, если мы хотим добавить то, чтобы выделяться в поиске, название, сниппет. 
-# --title - заголовок страницы. То, что мы увидим в браузере сверху (надпись на вкладке)
-# --body - тело страницы
-# --h1 - заголовок. Самый высокий уровень заголовка. h2 - уровень меньше, h3 еще меньше...h6.  Стандартные заголовки в HTML
-# --ol - order list. Нумерованный(упорядоченный) список
-# --li - list item
 
 if __name__ == '__main__':
     app.run(debug=True)
